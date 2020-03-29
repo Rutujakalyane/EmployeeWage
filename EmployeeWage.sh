@@ -1,20 +1,23 @@
 EmpRatePerHour=20
-DaysPerMonth=20
-for (( i=1;i<=DaysPerMonth;i++ ))
+while [[ (($TotalWorkingHours -lt 100 )) || (($TotalWorkingDay -lt 20 )) ]]
 do
 	check=$((RANDOM%3))
+	
 	case $check in
 		1)
-			TotalHour=8
+			TotalHours=8
 			;;
 		2)
-			TotalHour=4
+			TotalHours=4
 			;;
 		*)
-			TotalHour=0
+			TotalHours=0
 			;;
-esac
-SalaryPerDay=$(($EmpRatePerHour * $TotalHour))
-MonthlySalary=$(($MonthlySalary+$SalaryPerDay))
+	esac
+
+	TotalWorkingHours=$(($TotalWorkingHours+$TotalHours))
+	((TotalWorkingDay++))
 done
-echo "Monthly salary of employee is : $MonthlySalary"
+
+sal=$(($EmpRatePerHour*$TotalWorkingHours))
+echo "Monthly wage of employee is "$sal
