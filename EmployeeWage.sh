@@ -7,7 +7,7 @@ function getWorkingHours() {
 		echo 4
 		;;
 	*)
-		echo 8
+		echo 0
 		;;	
 	esac	
 }
@@ -21,7 +21,9 @@ do
 	WorkingHours=$(($WorkingHours+$Hours))
 	((WorkingDays++))
 	Salary[WorkingDays]=$Salary
-	MonthlyWage=$(($Salary+$MonthlyWage)) 
+	MonthlySalary=$(($Salary+$MonthlySalary)) 
 done
-echo $MonthlyWage
-echo ${Salary[@]}
+echo "Monthly salary : $MonthlyWage"
+echo "Day : ${!Salary[@]}"
+echo "Salary : ${Salary[@]}"
+
