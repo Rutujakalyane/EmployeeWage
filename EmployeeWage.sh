@@ -1,29 +1,27 @@
-  
-
-
-NUM_WORKING_DAYS=20
-EmpRatePerHour=20
-MAX_HR_IN_MONTH=4
 function getWorkingHours() {
-	case $1 in
-		1)
-			workHours=8
-			;;
-		2)
-			workHours=4
-			;;
-		*)
-			workHours=0
-			;;
-	esac
-		echo $workHours
+	case $1 in 
+	1)
+		echo 8
+		;;
+	2)
+		echo 4
+		;;
+	*)
+		echo 8
+		;;	
+	esac	
 }
-while [[ (( $totalWorkHours -lt 100 )) || (( $totalWorkingDays -lt 20 )) ]]
- do
-	((TotalWorkingDays++))
+
+EmpRatePerHour=20
+while [[ $WorkingHours -lt 100 && $WorkingDays -lt 20 ]]
+do
 	check=$(($RANDOM%3))
-	workHours="$( getWorkingHours $check  )"
-	totalWorkHours=$(($totalWorkHours + $workHours))
+	Hours=$( getWorkingHours $check )
+	Salary=$(($Hours * $EmpRatePerHour))
+	WorkingHours=$(($WorkingHours+$Hours))
+	((WorkingDays++))
+	Salary[WorkingDays]=$Salary
+	MonthlyWage=$(($Salary+$MonthlyWage)) 
 done
-totalSalary=$(($totalWorkingHours * $EmpRatePerHour))
-echo $totalWorkHours $totalSalary
+echo $MonthlyWage
+echo ${Salary[@]}
